@@ -1,1 +1,22 @@
+@charset "UTF-8";
 
+/*===== FONTS =====*/
+@font-face {
+  font-family: 'FiraSans-Regular';
+  src: url('./public/fonts/FiraSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'PT Sans Caption', sans-serif;
+  src: url('./public/fonts/PTSansCaption-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Caveat';
+  src: url('./public/fonts/Caveat-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'BIZ UDGothic', sans-serif;
+  src: url('./public/fonts/BIZUDGothic-Regular.ttf');
+}
