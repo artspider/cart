@@ -1,27 +1,31 @@
 <?php require(APPROOT . '/views/partials/head.php'); ?>
-  <h1 class=" text-3xl text-gray-200 "> <?= $data['title'] ?> </h1>
-  
-  <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" class="p-4">No. Control</th>
-          
-          <th scope="col" class="px-6 py-3">Paterno</th>
-          <th scope="col" class="px-6 py-3">Materno</th>
-          <th scope="col" class="px-6 py-3">Nombre</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($data['alumnos'] as $key => $alumno) : ?>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="px-6 py-4"><?= $alumno->control ?></td>
-            
-            <td class="px-6 py-4"><?= $alumno->paterno ?></td>
-            <td class="px-6 py-4"><?= $alumno->materno ?></td>
-            <td class="px-6 py-4"><?= $alumno->nombre ?></td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
+<div class="hero">
+  <div class="cta absolute top-12 2xl:top-10 right-12">
+    <h2 class="text-main text-5xl font-biz font-bold mb-4">
+      Jordan 1 BloodLine
+    </h2>
+    <button type="submit" class="font-biz font-semibold text-main tracking-wide bg-laces px-6 py-4 rounded-md ring-2 ring-main ">COMPRAR</button>
+  </div>  
+</div>
+
+<div class="popular my-20 text-center">
+  <h2 class="text-secondary text-3xl font-ptsans font-semibold tracking-wide mb-6">PUPULAR AHORA</h2>
+  <div class="lista text-lg font-ptsans flex justify-center">
+    <button class="elem1 px-4 py-2 ring-2 ring-laces/50 hover:ring-red-600 mr-4 uppercase ">Personanizados</button>
+    <button class="elem1 px-4 py-2 ring-2 ring-laces/50 hover:ring-red-600 mr-4 uppercase ">Materiales Reciclados</button>    
+    <button class="elem1 px-4 py-2 ring-2 ring-laces/50 hover:ring-red-600 mr-4 uppercase ">Superstar</button>
+    <button class="elem1 px-4 py-2 ring-2 ring-laces/50 hover:ring-red-600 mr-4 uppercase ">Whites</button>
+    <button class="elem1 px-4 py-2 ring-2 ring-laces/50 hover:ring-red-600 mr-4 uppercase ">Jordan's</button>
+  </div>
+</div>
+
+<div class="genre">
+  <h2>¿PARA QUIÉN COMPRAS?</h2>
+  <div class="genre__images">
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+  </div>
+</div>
 
 <?php require(APPROOT . '/views/partials/footer.php'); ?>

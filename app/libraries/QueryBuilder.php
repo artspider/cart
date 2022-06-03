@@ -11,7 +11,7 @@ class QueryBuilder {
     $statement = $this->pdo->prepare("select * from {$table}");
     $statement->execute();
     // Obtener todos los registros y mostrarlos como un objeto
-    return $alumnos = $statement->fetchAll(PDO::FETCH_OBJ);
+    return $statement->fetchAll(PDO::FETCH_OBJ);
     // Obtener todos los registros y enviarlos a una clase
     //return $statement->fetchAll(PDO::FETCH_CLASS, 'Alumno');
     //return $statement->fetchAll(PDO::FETCH_CLASS, $inToClass);
@@ -22,7 +22,7 @@ class QueryBuilder {
     $statement->bindParam(':value', $value);
     $statement->execute();
     // Obtener todos los registros y mostrarlos como un objeto
-    return $result = $statement->fetchAll(PDO::FETCH_OBJ);
+    return $statement->fetchAll(PDO::FETCH_OBJ);
   }
 
   public function insert() {

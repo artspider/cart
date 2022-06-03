@@ -1,4 +1,4 @@
-<header class="pt-36 2xl:pt-40">
+<header class="pt-36 pt-16 xl:pt-20 2xl:pt-24">
     <nav
       class="
         flex
@@ -19,8 +19,8 @@
     >
       <!--Logo etc-->
       <div class="flex items-center flex-shrink-0 text-white mr-6">
-        <a class="" target="_blank" href="https://localhost/cart">
-          <img class="w-20" src="./public/images/logo2.png" alt="" />
+        <a class="" target="_blank" href="http://localhost/cart/">
+          <img class="w-20" src="<?php echo URLROOT; ?>/images/logo2.png" alt="" />
         </a>
       </div>
 
@@ -163,7 +163,7 @@
                 transition
                 hover:translate-y-1 hover:shadow-md
               "
-              href="join_us.html"
+              href="users/signup"
               @click="isOpen = false"
               >REGISTRATE
             </a>

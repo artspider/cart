@@ -20,3 +20,19 @@
   font-family: 'BIZ UDGothic', sans-serif;
   src: url('./public/fonts/BIZUDGothic-Regular.ttf');
 }
+
+.hero {
+  width: 100%;
+  height: 100vh;
+  /* min-height: 850px; */
+  /* max-height: 850px; */
+  margin: auto;
+  background-color: red;
+  background-image: url('../images/jordan3.jpg');
+  /* background-blend-mode: multiply; */
+  background-position: center left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  box-sizing: border-box;
+}

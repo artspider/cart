@@ -15,6 +15,7 @@ tailwind.config = {
         secondary: '#262627',
         neutral: '#fff',
         accent: '#fe4918',
+        laces: '#e73241',
       },
     },
   },

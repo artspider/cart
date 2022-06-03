@@ -5,8 +5,8 @@ define('URLROOT', 'http://localhost/cart');
 define('SITENAME', 'Shoes-Cart');
 
 define('DATABASE', [
-  'name' => 'asistencia',
-  'username' => 'root',
+  'name' => 'shoecart',
+  'username' => 'artmin',
   'password' => 'Art750717',
   'connection' => 'mysql:host=127.0.0.1',
   'options' => [

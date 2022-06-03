@@ -6,10 +6,11 @@
     protected $params = [];
 
     public function __construct() {
-      //print_r($this->getUrl());
+      
       $URL = $this->getUrl();
+      //print_r($URL);
 
-      if(isset($url[0])) {
+      if(isset($URL[0])) {
         $controller = ucwords($URL[0]);
         if( file_exists('../app/controllers/' . $controller . '.php') ) {
           $this->currentController = $controller;
