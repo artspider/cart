@@ -6,6 +6,11 @@ class Users extends Controller {
     $this->userModel = $this->model('User');
   }
 
+
+  public function index() {
+    die('Estoy en el user controller');
+  }
+
   public function signup() {
     // Revisamos que el métdo sea POST, solo por ese método recibiremos datos 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -17,6 +22,7 @@ class Users extends Controller {
         'email' => trim( $_POST['email'] ),
         'password' => trim( $_POST['password'] ),
         'confirm_password' => trim( $_POST['confirm-password'] ),
+        'errors' => false,
         'name_err' => '',
         'lastname_err' => '',
         'email_err' => '',
@@ -25,14 +31,28 @@ class Users extends Controller {
       ];
 
       if($this->userModel->filter('email', $data['email'])) {
-        die('existe el email');
+        $data['email_err'] = 'Correo ya esta registrado';
+        $data['errors'] = true;
       }
 
       if ($data['password'] != $data['confirm_password']) {
         $data['confirm_password_err'] = 'Contraseñas no coinciden';
-        $this->view('users/signup', $data);
+        $data['errors'] = true;
       }
 
+      if ($data['errors']) {
+        $this->view('users/signup', $data);
+      }else{
+        // formData sin errores, listo para guardarse en la tabla
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+        // Tratamos de guardar el registro en la tabla
+        if ($this->userModel->create($data)) {
+          redirect('users/login');
+        } else {
+          die('algo salio mal...');
+        }
+      }
       
     }else {
       // Se deberá cargar el formulario primero
@@ -43,6 +63,7 @@ class Users extends Controller {
         'email' => '',
         'password' => '',
         'confirm_password' => '',
+        'errors' => false,
         'name_err' => '',
         'lastname_err' => '',
         'email_err' => '',
@@ -54,4 +75,10 @@ class Users extends Controller {
       $this->view('users/signup', $data);
     }
   }
+
+  public function login() {
+    echo 'login...';
+  }
+
+  public function clearData() {}
 }

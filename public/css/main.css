@@ -21,6 +21,10 @@
   src: url('./public/fonts/BIZUDGothic-Regular.ttf');
 }
 
+[x-cloak] {
+  display: none !important;
+}
+
 .hero {
   width: 100%;
   height: 100vh;

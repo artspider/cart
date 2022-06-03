@@ -10,9 +10,18 @@ let validation = () => {
     status: false,
     loading: false,
     isError: false,
+    passwordMin: false,
+    confirmPasswordStatus: false,
     modalHeaderText: '',
     modalBodyText: '',
     buttonLabel: 'Únete',
+    init() {
+      this.formData.email = document.getElementById('emailVal').value;
+      this.formData.name = document.getElementById('nameVal').value;
+      this.formData.lastname = document.getElementById('lastnameVal').value;
+      this.formData.password = document.getElementById('passwordVal').value;
+      this.isError = document.getElementById('errorsVal').value;
+    },
 
     isEmail(email) {
       var re = /\S+@\S+\.\S+/;
@@ -20,13 +29,21 @@ let validation = () => {
     },
 
     passwordConfirm() {
-      let $confirm = false;
-      if (
-        strcmp($this.formData.password, $this.formData.confirmPassword) == 0
-      ) {
-        $confirm = true;
+      let pass = this.formData.password;
+      let pass_confirm = this.formData.confirmPassword;
+      if (pass_confirm.length > 0) {
+        this.passwordMin = true;
+      } else {
+        this.passwordMin = false;
       }
-      return $confirm;
+      if (pass === pass_confirm && pass_confirm.length > 0) {
+        this.confirmPasswordStatus = true;
+      } else {
+        this.confirmPasswordStatus = false;
+      }
+      console.log('password_confirm > 0: ' + this.passwordMin);
+      console.log('passwords iguales: ' + this.confirmPasswordStatus);
+      return this.confirmPasswordStatus;
     },
 
     submitData() {

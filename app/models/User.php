@@ -16,4 +16,15 @@ class User {
  public function filter($field, $value) {
    return $this->query->selectByValue('users', $field, $value);
  }
+
+ public function create($data) {
+   $userData = [
+     'name' => $data['name'],
+     'lastname' => $data['lastname'],
+     'email' => $data['email'],
+     'password' => $data['password']
+   ];
+   
+   return $this->query->insert('users',$userData);
+ }
 }

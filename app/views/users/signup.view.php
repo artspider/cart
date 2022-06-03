@@ -1,12 +1,18 @@
 <?php require(APPROOT . '/views/partials/head.php'); ?>
 
-<div x-data="validation" x-init ="email = '<?= $data["email"]; ?>'";
-    },>
-  <div class="signup bg-neutral flex my-20 mx-10 rounded-md drop-shadow-md" >
+<div x-data="validation" >
+  <input id="emailVal" name="emailVal" type="hidden" value="<?= $data['email']; ?>">
+  <input id="nameVal" name="nameVal" type="hidden" value="<?= $data['name']; ?>">
+  <input id="lastnameVal" name="lastnameVal" type="hidden" value="<?= $data['lastname']; ?>">
+  <input id="passwordVal" name="passwordVal" type="hidden" value="<?= $data['password']; ?>">
+  <input id="errorsVal" name="errorsVal" type="hidden" value="<?= $data['errors']; ?>">
+
+  <div x-show="isError" class="errors bg-red-200 mt-16 mx-10 px-6 py-8 rounded-md drop-shadow-md text-sm text-laces font-semibold font-poppins">
+    <h2>Error: ¡<?= $data['email_err'] ?>!</h2>
+  </div>
+  <div class="signup bg-neutral flex my-16 mx-10 rounded-md drop-shadow-md" >
     <div class="signup-form w-1/2 p-10">
       <div class="signup__header text-center mb-6">
-        <span class="text-red-600 text-xl bg-main"><?= $data['confirm_password_err']; ?></span>
-        <span class="text-red-600 text-xl bg-main"><?= $data['email']; ?></span>
         <h2 class="text-xl text-laces">HAZTE MIEMBRO DE SNEAKERS SHOP</h2>
         <p class="text-poppins text-sm text-gray-600 mt-4 mx-10">Crea tu perfil como miembro y obtén acceso anticipado a los mejores productos, la inspiración y la comunidad.</p>
       </div>
@@ -35,14 +41,14 @@
         </div>
 
         <div class="password-input relative mb-4">
-          <input type="password" name="password" id="password" placeholder="Ingrese contraseña" x-model="formData.password"
+          <input x-on:input.change="passwordConfirm()" type="password" name="password" id="password" placeholder="Ingrese contraseña" x-model="formData.password"
                 class="form w-full rounded drop-shadow-md focus:border-blue-400 focus:ring-blue-500">
           <svg class="fill-current text-gray-500 w-6 absolute top-2 right-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17c0 .552-.447 1-1 1s-1-.448-1-1 .447-1 1-1 1 .448 1 1zm3 0c0 .552-.447 1-1 1s-1-.448-1-1 .447-1 1-1 1 .448 1 1zm3 0c0 .552-.447 1-1 1s-1-.448-1-1 .447-1 1-1 1 .448 1 1zm2-7v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v14h18v-14h-3zm-10-4c0-2.206 1.795-4 4-4s4 1.794 4 4v4h-8v-4zm11 16h-14v-10h14v10z"/>
           </svg>
         </div>
 
         <div class="repeat-password-input relative mb-4">
-          <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirme contraseña" x-model="formData.confirmPassword"
+          <input x-on:input.change="passwordConfirm()" type="password" name="confirm-password" id="confirm-password" placeholder="Confirme contraseña" x-model="formData.confirmPassword"
                 class="form w-full rounded drop-shadow-md focus:border-blue-400 focus:ring-blue-500">
           <svg class="fill-current text-gray-500 w-6 absolute top-2 right-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17c0 .552-.447 1-1 1s-1-.448-1-1 .447-1 1-1 1 .448 1 1zm3 0c0 .552-.447 1-1 1s-1-.448-1-1 .447-1 1-1 1 .448 1 1zm3 0c0 .552-.447 1-1 1s-1-.448-1-1 .447-1 1-1 1 .448 1 1zm2-7v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v14h18v-14h-3zm-10-4c0-2.206 1.795-4 4-4s4 1.794 4 4v4h-8v-4zm11 16h-14v-10h14v10z"/>
           </svg>
@@ -136,21 +142,18 @@
             </li>
 
             <!-- Validate Password Confirm -->
-            <li x-show="formData.confirmPassword > 0" class="flex items-center py-1">
+            <li x-show="passwordMin" class="flex items-center py-1">
               <div 
-              :class="{'bg-green-200 text-green-700': 
-                passwordConfirm()===true, 
-              'bg-red-200 text-red-700':formData.password !== 
-              formData.confirmPassword}"
+              :class="{'bg-green-200 text-green-700':confirmPasswordStatus, 'bg-red-200 text-red-700': !confirmPasswordStatus}"
                 class=" rounded-full p-1 fill-current ">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path
-                        x-show="formData.password === formData.confirmPassword"
+                        x-show="confirmPasswordStatus"
                         stroke-linecap="round" stroke-linejoin="round" 
                         stroke-width="2" d="M5 13l4 4L19 7" />
                     <path
-                        x-show="formData.password !== formData.confirmPassword"
+                        x-show="!confirmPasswordStatus"
                         stroke-linecap="round" stroke-linejoin="round" 
                         stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -158,12 +161,11 @@
 
               <span
                 :class="{'text-green-700': 
-                formData.password === formData.confirmPassword,
-                'text-red-700':formData.password !== formData.confirmPassword}"
+                  confirmPasswordStatus,
+                'text-red-700':!confirmPasswordStatus}"
                 class="font-medium text-sm ml-3"
-                x-text="formData.password === formData.confirmPassword ? 
+                x-text="confirmPasswordStatus ? 
                 'Passwords coinciden' : 'Passwords no coincide' "></span>
-                <span class="text-red-600"><?php echo $data['confirm_password_err']; ?></span>
             </li>
 
           </ul>

@@ -25,19 +25,32 @@ class QueryBuilder {
     return $statement->fetchAll(PDO::FETCH_OBJ);
   }
 
-  public function insert() {
-    /* $statement = $this->pdo->prepare("INSERT INTO {$table} (control, nombre, paterno, materno) 
-      VALUES (:control, :nombre, :paterno, :materno)");
+  public function insert($table, $data) {
+    $strData = implode(",", array_keys($data));
+    $keysName = array_keys($data);
+    $strBind = [];
+    foreach ($keysName as $key => $value) {
+      $strBind[$key] = ":".$value;
+    }
+    $strValues = implode(",", $data);
+    $xBind = implode(",", $strBind);
+
+    $statement = $this->pdo->prepare(
+                  "INSERT INTO {$table}
+                  ({$strData})
+                  VALUES ({$xBind})"
+                );
+
+    $i=0;            
+    foreach ($strBind as $key => $value) {
+      $statement->bindParam($value, $data[$keysName[$i]]);
+      $i++;
+    }
     
-    $control = "123456789";
-    $nombre = "Jose";
-    $paterno = "Torres";
-    $ciudad = "Salinas";
-    $statement->bindParam(':control', $control);
-    $statement->bindParam(':nombre', $nombre);
-    $statement->bindParam(':paterno', $paterno);
-    $statement->bindParam(':materno', $materno);
-    
-    $statement->execute(); */
+    if($statement->execute()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
