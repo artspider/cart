@@ -10,6 +10,7 @@ let validation = () => {
     status: false,
     loading: false,
     isError: false,
+
     passwordMin: false,
     confirmPasswordStatus: false,
     modalHeaderText: '',

@@ -1,5 +1,7 @@
 <?php require(APPROOT . '/views/partials/head.php'); ?>
 
+<?php flash('register_error'); ?>
+
 <div x-data="validation" >
   <input id="emailVal" name="emailVal" type="hidden" value="<?= $data['email']; ?>">
   <input id="nameVal" name="nameVal" type="hidden" value="<?= $data['name']; ?>">
@@ -7,9 +9,8 @@
   <input id="passwordVal" name="passwordVal" type="hidden" value="<?= $data['password']; ?>">
   <input id="errorsVal" name="errorsVal" type="hidden" value="<?= $data['errors']; ?>">
 
-  <div x-show="isError" class="errors bg-red-200 mt-16 mx-10 px-6 py-8 rounded-md drop-shadow-md text-sm text-laces font-semibold font-poppins">
-    <h2>Error: ¡<?= $data['email_err'] ?>!</h2>
-  </div>
+  
+  
   <div class="signup bg-neutral flex my-16 mx-10 rounded-md drop-shadow-md" >
     <div class="signup-form w-1/2 p-10">
       <div class="signup__header text-center mb-6">

@@ -27,4 +27,16 @@ class User {
    
    return $this->query->insert('users',$userData);
  }
+
+ public function login($email, $password){
+  $user = $this->filter('email', $email);
+
+  $hashed_password = $user[0]->password;
+  if(password_verify($password, $hashed_password)){
+    return $user[0];
+  } else {
+    return false;
+  }
+}
+
 }

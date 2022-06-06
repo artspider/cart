@@ -89,7 +89,7 @@
                 transition
                 hover:translate-y-1
               "
-              href="#"
+              href="<?php echo URLROOT; ?>"
               @click="isOpen = false"
               >INICIO
             </a>
@@ -148,6 +148,25 @@
               >MARCAS
             </a>
           </li>
+          <?php if( !isset($_SESSION['user_id']) ) : ?>
+          <li class="mr-3">
+            <a
+              class="
+                inline-block
+                text-gray-400
+                no-underline
+                hover:text-red-500 hover:text-underline
+                py-2
+                px-4
+                transform
+                transition
+                hover:translate-y-1
+              "
+              href="<?php echo URLROOT; ?>/users/login"
+              @click="isOpen = false"
+              >LOGIN
+            </a>
+          </li>
           <li class="mr-3">
             <a
               class="
@@ -163,11 +182,53 @@
                 transition
                 hover:translate-y-1 hover:shadow-md
               "
-              href="users/signup"
+              href="<?php echo URLROOT; ?>/users/signup"
               @click="isOpen = false"
               >REGISTRATE
             </a>
           </li>
+          <?php endif; ?>
+          <!-- Perfil del usuario -->
+          <?php if( isset($_SESSION['user_id']) ) : ?>
+            <li class="mr-3">
+            <a
+              class="
+              inline-block
+                text-gray-400
+                no-underline
+                hover:text-red-500 hover:text-underline
+                py-2
+                px-4
+                transform
+                transition
+                hover:translate-y-1
+              "
+              href="<?php echo URLROOT; ?>/users/profile"
+              @click="isOpen = false"
+              ><?= strtoupper($_SESSION['user_name']) ?>
+            </a>
+          </li>
+          <li class="mr-3">
+            <a
+              class="
+                inline-block
+                text-white
+                no-underline
+                hover:text-gray-200 hover:text-underline
+                py-2
+                px-4
+                bg-red-500
+                rounded-xl
+                transform
+                transition
+                hover:translate-y-1 hover:shadow-md
+              "
+              href="<?php echo URLROOT; ?>/users/logout"
+              @click="isOpen = false"
+              >LOGOUT
+            </a>
+          </li>
+          <?php endif; ?>          
         </ul>
       </div>
 
