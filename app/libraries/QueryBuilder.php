@@ -7,7 +7,7 @@ class QueryBuilder {
     $this->pdo = $pdo;
   }
 
-  public function selectAll($table, $inToClass) {    
+  public function selectAll($table, $inToClass) {
     $statement = $this->pdo->prepare("select * from {$table}");
     $statement->execute();
     // Obtener todos los registros y mostrarlos como un objeto
